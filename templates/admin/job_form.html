@@ -1,0 +1,77 @@
+{% extends "admin/base.html" %}
+{% block page_title %}{{ 'Edit Job' if job else 'Add Job' }}{% endblock %}
+{% block admin_content %}
+
+<div class="card" style="max-width:720px;">
+  <form method="POST" data-validate>
+    <div class="field">
+      <label for="title">Job Title</label>
+      <input type="text" id="title" name="title" required value="{{ form.get('title','') if form else '' }}">
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label for="department">Department</label>
+        <input type="text" id="department" name="department" placeholder="e.g. Engineering" value="{{ form.get('department','') if form else '' }}">
+      </div>
+      <div class="field">
+        <label for="employment_type">Employment Type</label>
+        <select id="employment_type" name="employment_type">
+          {% set current_type = form.get('employment_type','') if form else '' %}
+          {% for t in ['Full-time', 'Part-time', 'Contract', 'Internship', 'Freelance'] %}
+          <option value="{{ t }}" {{ 'selected' if current_type == t }}>{{ t }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Remote / City" value="{{ form.get('location','') if form else '' }}">
+      </div>
+      <div class="field">
+        <label for="compensation">Compensation</label>
+        <input type="text" id="compensation" name="compensation" placeholder="e.g. ₹4,00,000 – ₹6,00,000 /yr" value="{{ form.get('compensation','') if form else '' }}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="4" required>{{ form.get('description','') if form else '' }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="responsibilities">Responsibilities</label>
+      <textarea id="responsibilities" name="responsibilities" rows="4" placeholder="One per line">{{ form.get('responsibilities','') if form else '' }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="requirements">Requirements</label>
+      <textarea id="requirements" name="requirements" rows="4" placeholder="One per line">{{ form.get('requirements','') if form else '' }}</textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label for="deadline">Application Deadline</label>
+        <input type="date" id="deadline" name="deadline" value="{{ form.get('deadline','') if form else '' }}">
+      </div>
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          {% set current_status = form.get('status', 'Draft') if form else 'Draft' %}
+          {% for s in ['Draft', 'Open', 'Closed'] %}
+          <option value="{{ s }}" {{ 'selected' if current_status == s }}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="flex gap-3" style="margin-top:24px;">
+      <button type="submit" class="btn btn-primary">{{ 'Save Changes' if job else 'Create Job' }}</button>
+      <a href="{{ url_for('admin.careers') }}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

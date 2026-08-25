@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — {{ brand_name }}</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/favicon.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="toast-stack" role="status" aria-live="polite">
+    {% for category, message in messages %}
+    <div class="toast {{ 'success' if category == 'success' else 'error' }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+<div class="login-shell">
+  <div class="card login-card">
+    <div class="brand">
+      <img src="{{ logo_small }}" alt="{{ brand_name }} logo" style="width:40px;height:40px;border-radius:10px;">
+    </div>
+    <h1>Studio Admin</h1>
+    <p class="sub text-muted">Sign in to manage {{ brand_name }}</p>
+    <form method="POST" data-validate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autofocus>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/forms.js') }}"></script>
+</body>
+</html>

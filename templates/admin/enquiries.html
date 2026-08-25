@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Enquiries{% endblock %}
+{% block admin_content %}
+
+<div class="filter-bar">
+  <a href="{{ url_for('admin.enquiries') }}" class="filter-tab {{ 'active' if not active_status }}">All</a>
+  {% for s in statuses %}
+  <a href="{{ url_for('admin.enquiries', status=s) }}" class="filter-tab {{ 'active' if active_status == s }}">{{ s }}</a>
+  {% endfor %}
+</div>
+
+{% if enquiries %}
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr><th>Name</th><th>Email</th><th>Company</th><th>Service</th><th>Budget</th><th>Date</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      {% for e in enquiries %}
+      <tr>
+        <td><a class="row-link" href="{{ url_for('admin.enquiry_detail', enquiry_id=e.id) }}">{{ e.name }}</a></td>
+        <td>{{ e.email }}</td>
+        <td>{{ e.company or '—' }}</td>
+        <td>{{ e.service }}</td>
+        <td>{{ e.budget_range or '—' }}</td>
+        <td>{{ e.created_at }}</td>
+        <td><span class="status-pill status-{{ e.status.replace(' ', '-') }}">{{ e.status }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="icon">✉️</div>
+  <h3>No enquiries {{ 'with status ' + active_status if active_status else 'yet' }}</h3>
+</div>
+{% endif %}
+
+{% endblock %}

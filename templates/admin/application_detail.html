@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Application Details{% endblock %}
+{% block admin_content %}
+
+<a href="{{ url_for('admin.applications') }}" class="text-muted" style="font-size:0.88rem;">← Back to Applications</a>
+
+<div class="dash-grid" style="margin-top:20px;">
+  <div class="detail-panel">
+    <div class="detail-row"><span class="k">Full Name</span><span class="v">{{ application.full_name }}</span></div>
+    <div class="detail-row"><span class="k">Email</span><span class="v">{{ application.email }}</span></div>
+    <div class="detail-row"><span class="k">Phone</span><span class="v">{{ application.phone or '—' }}</span></div>
+    <div class="detail-row"><span class="k">Applied For</span><span class="v">{{ application.job_title }}</span></div>
+    <div class="detail-row"><span class="k">Portfolio</span><span class="v">{% if application.portfolio_url %}<a href="{{ application.portfolio_url }}" target="_blank" rel="noopener noreferrer" style="color:var(--blue-bright);">{{ application.portfolio_url }}</a>{% else %}—{% endif %}</span></div>
+    <div class="detail-row"><span class="k">Submitted</span><span class="v">{{ application.created_at }}</span></div>
+    <div class="detail-row" style="border-bottom:none;flex-direction:column;align-items:flex-start;gap:8px;">
+      <span class="k">Cover Message</span>
+      <p style="color:var(--text);">{{ application.cover_message or '—' }}</p>
+    </div>
+  </div>
+
+  <div class="detail-panel">
+    <h3 style="margin-bottom:16px;">Resume</h3>
+    <a href="{{ url_for('admin.application_resume', application_id=application.id) }}" class="btn btn-secondary btn-block">Download Resume</a>
+
+    <h3 style="margin:24px 0 16px;">Status</h3>
+    <form method="POST">
+      <div class="field">
+        <select name="status" data-auto-submit>
+          {% for s in statuses %}
+          <option value="{{ s }}" {{ 'selected' if application.status == s }}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <noscript><button type="submit" class="btn btn-primary btn-block">Update Status</button></noscript>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

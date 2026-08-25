@@ -1,0 +1,41 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Enquiry Details{% endblock %}
+{% block admin_content %}
+
+<a href="{{ url_for('admin.enquiries') }}" class="text-muted" style="font-size:0.88rem;">← Back to Enquiries</a>
+
+<div class="dash-grid" style="margin-top:20px;">
+  <div class="detail-panel">
+    <div class="detail-row"><span class="k">Full Name</span><span class="v">{{ enquiry.name }}</span></div>
+    <div class="detail-row"><span class="k">Email</span><span class="v">{{ enquiry.email }}</span></div>
+    <div class="detail-row"><span class="k">Phone</span><span class="v">{{ enquiry.phone or '—' }}</span></div>
+    <div class="detail-row"><span class="k">Company</span><span class="v">{{ enquiry.company or '—' }}</span></div>
+    <div class="detail-row"><span class="k">Service</span><span class="v">{{ enquiry.service }}</span></div>
+    <div class="detail-row"><span class="k">Budget</span><span class="v">{{ enquiry.budget_range or '—' }}</span></div>
+    <div class="detail-row"><span class="k">Submitted</span><span class="v">{{ enquiry.created_at }}</span></div>
+    <div class="detail-row" style="border-bottom:none;flex-direction:column;align-items:flex-start;gap:8px;">
+      <span class="k">Message</span>
+      <p style="color:var(--text);">{{ enquiry.message }}</p>
+    </div>
+  </div>
+
+  <div class="detail-panel">
+    <h3 style="margin-bottom:16px;">Status</h3>
+    <form method="POST">
+      <div class="field">
+        <select name="status" data-auto-submit>
+          {% for s in statuses %}
+          <option value="{{ s }}" {{ 'selected' if enquiry.status == s }}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <noscript><button type="submit" class="btn btn-primary btn-block">Update Status</button></noscript>
+    </form>
+
+    <form method="POST" action="{{ url_for('admin.enquiry_delete', enquiry_id=enquiry.id) }}" data-confirm="Delete this enquiry permanently?" style="margin-top:20px;">
+      <button type="submit" class="btn btn-danger btn-block">Delete Enquiry</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

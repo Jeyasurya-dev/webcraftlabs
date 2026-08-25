@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Admin — {{ brand_name }}{% endblock %}</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/favicon.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="toast-stack" role="status" aria-live="polite">
+    {% for category, message in messages %}
+    <div class="toast {{ 'success' if category == 'success' else 'error' }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand">
+      <img src="{{ logo_small }}" alt="{{ brand_name }} logo" style="width:32px;height:32px;border-radius:8px;">
+      <span style="font-family:var(--font-display);font-weight:600;">Studio Admin</span>
+    </div>
+    <nav class="admin-nav">
+      <a href="{{ url_for('admin.dashboard') }}" class="{{ 'active' if request.endpoint == 'admin.dashboard' }}">📊 Dashboard</a>
+      <a href="{{ url_for('admin.enquiries') }}" class="{{ 'active' if request.endpoint and request.endpoint.startswith('admin.enquir') }}">✉️ Enquiries</a>
+      <a href="{{ url_for('admin.projects') }}" class="{{ 'active' if request.endpoint and request.endpoint.startswith('admin.project') }}">🗂️ Projects</a>
+      <a href="{{ url_for('admin.careers') }}" class="{{ 'active' if request.endpoint and request.endpoint.startswith('admin.career') }}">💼 Careers</a>
+      <a href="{{ url_for('admin.applications') }}" class="{{ 'active' if request.endpoint and request.endpoint.startswith('admin.application') }}">📄 Applications</a>
+      <a href="{{ url_for('admin.settings') }}" class="{{ 'active' if request.endpoint == 'admin.settings' }}">⚙️ Settings</a>
+    </nav>
+    <div class="admin-nav-footer">
+      <a href="{{ url_for('public.home') }}" style="color:var(--text-faint);font-size:0.85rem;padding:11px 14px;display:block;">← View site</a>
+      <form method="POST" action="{{ url_for('admin.logout') }}">
+        <button type="submit" class="btn btn-secondary btn-sm btn-block">Logout</button>
+      </form>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+      {% block topbar_actions %}{% endblock %}
+    </div>
+    <div class="admin-content">
+      {% block admin_content %}{% endblock %}
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/forms.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

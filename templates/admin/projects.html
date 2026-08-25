@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Projects{% endblock %}
+{% block topbar_actions %}<a href="{{ url_for('admin.project_new') }}" class="btn btn-primary btn-sm">+ Add Project</a>{% endblock %}
+{% block admin_content %}
+
+{% if projects %}
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr><th>Title</th><th>Category</th><th>Published</th><th>Featured</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for p in projects %}
+      <tr>
+        <td><a class="row-link" href="{{ url_for('admin.project_edit', project_id=p.id) }}">{{ p.title }}</a></td>
+        <td>{{ p.category or '—' }}</td>
+        <td><span class="status-pill {{ 'status-Open' if p.is_published else 'status-Closed' }}">{{ 'Published' if p.is_published else 'Unpublished' }}</span></td>
+        <td>{{ '★ Yes' if p.is_featured else 'No' }}</td>
+        <td class="actions-cell">
+          <a href="{{ url_for('admin.project_edit', project_id=p.id) }}" class="btn btn-secondary btn-sm">Edit</a>
+          <form method="POST" action="{{ url_for('admin.project_toggle_publish', project_id=p.id) }}"><button class="btn btn-secondary btn-sm">{{ 'Unpublish' if p.is_published else 'Publish' }}</button></form>
+          <form method="POST" action="{{ url_for('admin.project_toggle_featured', project_id=p.id) }}"><button class="btn btn-secondary btn-sm">{{ 'Unfeature' if p.is_featured else 'Feature' }}</button></form>
+          <form method="POST" action="{{ url_for('admin.project_delete', project_id=p.id) }}" data-confirm="Delete this project permanently?"><button class="btn btn-danger btn-sm">Delete</button></form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="icon">🗂️</div>
+  <h3>No projects yet</h3>
+  <p style="margin-bottom:20px;">Add your first project to have it appear on the public portfolio page.</p>
+  <a href="{{ url_for('admin.project_new') }}" class="btn btn-primary">+ Add Project</a>
+</div>
+{% endif %}
+
+{% endblock %}

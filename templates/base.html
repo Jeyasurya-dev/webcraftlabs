@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{{ brand_name }} — {{ brand_tagline }}{% endblock %}</title>
+<meta name="description" content="{% block description %}The Webcraft Labs designs and builds premium business websites, e-commerce stores, portfolios, and AI-powered web experiences.{% endblock %}">
+
+<meta property="og:title" content="{% block og_title %}{{ brand_name }}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}Web • AI Solutions — modern websites and digital products built to grow your business.{% endblock %}">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{{ logo_main }}">
+
+<link rel="icon" type="image/png" href="/favicon.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+{% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:0;">Skip to content</a>
+
+<header class="navbar">
+  <div class="navbar-inner">
+    <a href="{{ url_for('public.home') }}" class="brand">
+      <img src="{{ logo_small }}" alt="{{ brand_name }} logo">
+      <span>The Webcraft Labs</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="{{ url_for('public.home') }}" class="{{ 'active' if request.endpoint == 'public.home' }}">Home</a></li>
+        <li><a href="{{ url_for('public.services') }}" class="{{ 'active' if request.endpoint == 'public.services' }}">Services</a></li>
+        <li><a href="{{ url_for('public.portfolio') }}" class="{{ 'active' if request.endpoint == 'public.portfolio' }}">Portfolio</a></li>
+        <li><a href="{{ url_for('public.about') }}" class="{{ 'active' if request.endpoint == 'public.about' }}">About</a></li>
+        <li><a href="{{ url_for('careers.careers_list') }}" class="{{ 'active' if request.endpoint and request.endpoint.startswith('careers.') }}">Careers</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-sm">Start a Project</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="toast-stack" role="status" aria-live="polite">
+    {% for category, message in messages %}
+    <div class="toast {{ 'success' if category == 'success' else 'error' }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+<main id="main-content">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="{{ logo_small }}" alt="{{ brand_name }} logo">
+          <span>The Webcraft Labs</span>
+        </div>
+        <p style="max-width:280px;">Web • AI Solutions. We design and build digital experiences that help businesses stand out and scale.</p>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="{{ url_for('public.about') }}">About</a></li>
+          <li><a href="{{ url_for('public.portfolio') }}">Portfolio</a></li>
+          <li><a href="{{ url_for('careers.careers_list') }}">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="{{ url_for('public.services') }}">Business Websites</a></li>
+          <li><a href="{{ url_for('public.services') }}">E-Commerce</a></li>
+          <li><a href="{{ url_for('public.services') }}">AI-Powered Websites</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul>
+          <li><a href="{{ url_for('public.contact') }}">Start a Project</a></li>
+          <li><a href="{{ url_for('admin.login') }}">Admin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ current_year }} The Webcraft Labs. All rights reserved.</span>
+      <span>Design • Develop • Deliver</span>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/forms.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

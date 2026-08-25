@@ -1,0 +1,32 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Applications{% endblock %}
+{% block admin_content %}
+
+{% if applications %}
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr><th>Applicant</th><th>Job</th><th>Email</th><th>Date</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      {% for a in applications %}
+      <tr>
+        <td><a class="row-link" href="{{ url_for('admin.application_detail', application_id=a.id) }}">{{ a.full_name }}</a></td>
+        <td>{{ a.job_title }}</td>
+        <td>{{ a.email }}</td>
+        <td>{{ a.created_at }}</td>
+        <td><span class="status-pill status-{{ a.status.replace(' ', '-') }}">{{ a.status }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="icon">📄</div>
+  <h3>No applications yet</h3>
+  <p>Applications submitted through open job postings will appear here.</p>
+</div>
+{% endif %}
+
+{% endblock %}

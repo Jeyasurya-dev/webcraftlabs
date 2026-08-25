@@ -1,0 +1,89 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Dashboard{% endblock %}
+{% block admin_content %}
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="value">{{ stats.total_enquiries }}</div><div class="label">Total Enquiries</div></div>
+  <div class="stat-card"><div class="value">{{ stats.new_enquiries }}</div><div class="label">New Enquiries</div></div>
+  <div class="stat-card"><div class="value">{{ stats.active_projects }}</div><div class="label">Active Projects</div></div>
+  <div class="stat-card"><div class="value">{{ stats.open_jobs }}</div><div class="label">Open Jobs</div></div>
+  <div class="stat-card"><div class="value">{{ stats.applications }}</div><div class="label">Applications</div></div>
+</div>
+
+<div class="quick-actions">
+  <a href="{{ url_for('admin.project_new') }}" class="quick-action"><span class="icon">🗂️</span>Add Project</a>
+  <a href="{{ url_for('admin.career_new') }}" class="quick-action"><span class="icon">💼</span>Add Job</a>
+  <a href="{{ url_for('admin.enquiries') }}" class="quick-action"><span class="icon">✉️</span>View Enquiries</a>
+  <a href="{{ url_for('admin.applications') }}" class="quick-action"><span class="icon">📄</span>View Applications</a>
+</div>
+
+<div class="dash-grid">
+  <div>
+    <div class="admin-header-row"><h3>Recent Enquiries</h3></div>
+    {% if recent_enquiries %}
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Name</th><th>Service</th><th>Status</th></tr></thead>
+        <tbody>
+          {% for e in recent_enquiries %}
+          <tr>
+            <td><a class="row-link" href="{{ url_for('admin.enquiry_detail', enquiry_id=e.id) }}">{{ e.name }}</a></td>
+            <td>{{ e.service }}</td>
+            <td><span class="status-pill status-{{ e.status.replace(' ', '-') }}">{{ e.status }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><p>No enquiries yet.</p></div>
+    {% endif %}
+  </div>
+
+  <div>
+    <div class="admin-header-row"><h3>Recent Applications</h3></div>
+    {% if recent_applications %}
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Applicant</th><th>Job</th><th>Status</th></tr></thead>
+        <tbody>
+          {% for a in recent_applications %}
+          <tr>
+            <td><a class="row-link" href="{{ url_for('admin.application_detail', application_id=a.id) }}">{{ a.full_name }}</a></td>
+            <td>{{ a.job_title }}</td>
+            <td><span class="status-pill status-{{ a.status.replace(' ', '-') }}">{{ a.status }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><p>No applications yet.</p></div>
+    {% endif %}
+  </div>
+</div>
+
+<div style="margin-top:24px;">
+  <div class="admin-header-row"><h3>Active Jobs</h3></div>
+  {% if active_jobs %}
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Title</th><th>Department</th><th>Location</th><th>Posted</th></tr></thead>
+      <tbody>
+        {% for j in active_jobs %}
+        <tr>
+          <td><a class="row-link" href="{{ url_for('admin.career_edit', job_id=j.id) }}">{{ j.title }}</a></td>
+          <td>{{ j.department }}</td>
+          <td>{{ j.location }}</td>
+          <td>{{ j.posted_at }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state"><p>No open jobs right now.</p></div>
+  {% endif %}
+</div>
+
+{% endblock %}

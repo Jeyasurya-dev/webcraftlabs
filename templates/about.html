@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}About — {{ brand_name }}{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <div class="eyebrow">About</div>
+    <h1>More Than Websites.<br>We Build Digital Products.</h1>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="container">
+    <div class="about-block">
+      <div class="reveal">
+        <h2 style="margin-bottom:20px;">A studio built around outcomes, not templates</h2>
+        <p style="margin-bottom:16px;">The Webcraft Labs is a modern digital studio focused on web development, UI/UX, and AI-powered experiences. We work across business websites, e-commerce, and custom web applications — always starting from what the business actually needs, not a pre-built theme.</p>
+        <p>Every project moves through the same disciplined process: discover, design, develop, launch. That consistency is what lets us move fast without cutting corners.</p>
+      </div>
+      <div class="reveal" aria-hidden="true">
+        <img src="{{ logo_main }}" alt="" style="width:100%;max-width:360px;margin:0 auto;display:block;border-radius:var(--radius-lg);">
+      </div>
+    </div>
+
+    <div class="about-badge-grid reveal">
+      <div class="about-badge"><h3 style="font-size:1rem;margin-bottom:6px;">Web Development</h3><p style="font-size:0.85rem;">Fast, maintainable builds on modern foundations.</p></div>
+      <div class="about-badge"><h3 style="font-size:1rem;margin-bottom:6px;">UI/UX</h3><p style="font-size:0.85rem;">Interfaces designed for clarity and conversion.</p></div>
+      <div class="about-badge"><h3 style="font-size:1rem;margin-bottom:6px;">AI-Powered Experiences</h3><p style="font-size:0.85rem;">Intelligent features where they genuinely help.</p></div>
+      <div class="about-badge"><h3 style="font-size:1rem;margin-bottom:6px;">Digital Products</h3><p style="font-size:0.85rem;">From first idea to a live, scalable product.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--bg-elevated);text-align:center;">
+  <div class="container">
+    <h2 style="margin-bottom:20px;">Want to work with us?</h2>
+    <div class="flex" style="justify-content:center;gap:16px;flex-wrap:wrap;">
+      <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Start a Project →</a>
+      <a href="{{ url_for('careers.careers_list') }}" class="btn btn-secondary">View Open Roles →</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

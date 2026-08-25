@@ -1,0 +1,46 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Careers{% endblock %}
+{% block topbar_actions %}<a href="{{ url_for('admin.career_new') }}" class="btn btn-primary btn-sm">+ Add Job</a>{% endblock %}
+{% block admin_content %}
+
+{% if jobs %}
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr><th>Title</th><th>Department</th><th>Location</th><th>Status</th><th>Posted</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for j in jobs %}
+      <tr>
+        <td><a class="row-link" href="{{ url_for('admin.career_edit', job_id=j.id) }}">{{ j.title }}</a></td>
+        <td>{{ j.department }}</td>
+        <td>{{ j.location }}</td>
+        <td><span class="status-pill status-{{ j.status }}">{{ j.status }}</span></td>
+        <td>{{ j.posted_at }}</td>
+        <td class="actions-cell">
+          <a href="{{ url_for('admin.career_edit', job_id=j.id) }}" class="btn btn-secondary btn-sm">Edit</a>
+          {% if j.status != 'Open' %}
+          <form method="POST" action="{{ url_for('admin.career_set_status', job_id=j.id) }}"><input type="hidden" name="status" value="Open"><button class="btn btn-secondary btn-sm">Publish</button></form>
+          {% else %}
+          <form method="POST" action="{{ url_for('admin.career_set_status', job_id=j.id) }}"><input type="hidden" name="status" value="Draft"><button class="btn btn-secondary btn-sm">Unpublish</button></form>
+          {% endif %}
+          {% if j.status != 'Closed' %}
+          <form method="POST" action="{{ url_for('admin.career_set_status', job_id=j.id) }}"><input type="hidden" name="status" value="Closed"><button class="btn btn-secondary btn-sm">Close</button></form>
+          {% endif %}
+          <form method="POST" action="{{ url_for('admin.career_delete', job_id=j.id) }}" data-confirm="Delete this job permanently?"><button class="btn btn-danger btn-sm">Delete</button></form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="icon">💼</div>
+  <h3>No jobs yet</h3>
+  <p style="margin-bottom:20px;">Post a role and publish it to have it appear on the public careers page.</p>
+  <a href="{{ url_for('admin.career_new') }}" class="btn btn-primary">+ Add Job</a>
+</div>
+{% endif %}
+
+{% endblock %}

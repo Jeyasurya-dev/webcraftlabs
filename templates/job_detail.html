@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} — Careers — {{ brand_name }}{% endblock %}
+{% block content %}
+
+<section class="section" style="padding-top:60px;">
+  <div class="container">
+    <a href="{{ url_for('careers.careers_list') }}" class="text-muted" style="font-size:0.88rem;">← Back to Careers</a>
+
+    <div class="job-detail-grid" style="margin-top:24px;">
+      <div class="job-detail-body">
+        <div class="eyebrow">{{ job.department }}</div>
+        <h1>{{ job.title }}</h1>
+        <div class="job-meta" style="margin-top:16px;">
+          <span class="badge">{{ job.employment_type }}</span>
+          <span class="badge badge-cyan">{{ job.location }}</span>
+          {% if job.compensation %}<span class="badge badge-violet">{{ job.compensation }}</span>{% endif %}
+        </div>
+
+        <h2>About the role</h2>
+        <p>{{ job.description }}</p>
+
+        {% if job.responsibilities %}
+        <h2>Responsibilities</h2>
+        <ul>
+          {% for line in job.responsibilities.split('\n') if line.strip() %}
+          <li>{{ line.strip('- ').strip() }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if job.requirements %}
+        <h2>Requirements</h2>
+        <ul>
+          {% for line in job.requirements.split('\n') if line.strip() %}
+          <li>{{ line.strip('- ').strip() }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if job.deadline %}<p style="margin-top:24px;font-size:0.85rem;">Application deadline: <strong>{{ job.deadline }}</strong></p>{% endif %}
+      </div>
+
+      <div class="card apply-card">
+        {% if job.status == 'Open' %}
+        <h3 style="margin-bottom:20px;">Apply for this role</h3>
+        <form method="POST" enctype="multipart/form-data" data-validate>
+          <div class="field">
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" required value="{{ form.get('full_name','') }}">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required value="{{ form.get('email','') }}">
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" value="{{ form.get('phone','') }}">
+          </div>
+          <div class="field">
+            <label for="portfolio_url">Portfolio URL</label>
+            <input type="url" id="portfolio_url" name="portfolio_url" placeholder="https://" value="{{ form.get('portfolio_url','') }}">
+          </div>
+          <div class="field">
+            <label for="resume">Resume (PDF, DOC, DOCX)</label>
+            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+            <div class="hint">Max 5MB. Only admins can access uploaded resumes.</div>
+          </div>
+          <div class="field">
+            <label for="cover_message">Cover Message</label>
+            <textarea id="cover_message" name="cover_message" rows="4" placeholder="Tell us why you're a good fit...">{{ form.get('cover_message','') }}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit Application</button>
+        </form>
+        {% else %}
+        <h3>This role is closed</h3>
+        <p style="margin-top:10px;">This position is no longer accepting applications. Check our other <a href="{{ url_for('careers.careers_list') }}" style="color:var(--blue-bright);">open roles</a>.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "admin/base.html" %}
+{% block page_title %}{{ 'Edit Project' if project else 'Add Project' }}{% endblock %}
+{% block admin_content %}
+
+<div class="card" style="max-width:720px;">
+  <form method="POST" enctype="multipart/form-data" data-validate>
+    <div class="field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required value="{{ form.get('title','') if form else '' }}">
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" placeholder="e.g. E-Commerce" value="{{ form.get('category','') if form else '' }}">
+      </div>
+      <div class="field">
+        <label for="technology">Technology (comma separated)</label>
+        <input type="text" id="technology" name="technology" placeholder="Flask, PostgreSQL, React" value="{{ form.get('technology','') if form else '' }}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="description">Short Description</label>
+      <textarea id="description" name="description" rows="3">{{ form.get('description','') if form else '' }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="case_study">Case Study Content</label>
+      <textarea id="case_study" name="case_study" rows="5">{{ form.get('case_study','') if form else '' }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="live_url">Live URL</label>
+      <input type="url" id="live_url" name="live_url" placeholder="https://" value="{{ form.get('live_url','') if form else '' }}">
+    </div>
+
+    <div class="field">
+      <label for="image">Project Image</label>
+      {% if project and project.image_data %}
+      <img src="{{ project.image_data }}" class="thumb-preview" data-image-preview alt="Current project image">
+      {% else %}
+      <img class="thumb-preview" data-image-preview alt="" style="display:none;">
+      {% endif %}
+      <input type="file" id="image" name="image" accept="image/*">
+      <div class="hint">PNG, JPEG, WEBP or GIF, up to 5MB. Stored as an embedded image — no external hosting.</div>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label for="sort_order">Sort Order</label>
+        <input type="number" id="sort_order" name="sort_order" value="{{ form.get('sort_order', 0) if form else 0 }}">
+      </div>
+    </div>
+
+    <div class="checkbox-field">
+      <input type="checkbox" id="is_published" name="is_published" {{ 'checked' if project and project.is_published }}>
+      <label for="is_published" style="margin:0;">Published (visible on public portfolio)</label>
+    </div>
+    <div class="checkbox-field">
+      <input type="checkbox" id="is_featured" name="is_featured" {{ 'checked' if project and project.is_featured }}>
+      <label for="is_featured" style="margin:0;">Featured on homepage</label>
+    </div>
+
+    <div class="flex gap-3" style="margin-top:24px;">
+      <button type="submit" class="btn btn-primary">{{ 'Save Changes' if project else 'Create Project' }}</button>
+      <a href="{{ url_for('admin.projects') }}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

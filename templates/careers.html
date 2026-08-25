@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Careers — {{ brand_name }}{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <div class="eyebrow">Careers</div>
+    <h1>Build With Us</h1>
+    <p style="max-width:560px;margin:16px auto 0;">We're always looking for talented people who want to build meaningful digital experiences.</p>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="container">
+    {% if jobs %}
+    <div class="job-list">
+      {% for job in jobs %}
+      <a href="{{ url_for('careers.job_detail', slug=job.slug) }}" class="job-row reveal in">
+        <div>
+          <h3>{{ job.title }}</h3>
+          <div class="job-meta">
+            <span>{{ job.department }}</span>
+            <span>·</span>
+            <span>{{ job.employment_type }}</span>
+            <span>·</span>
+            <span>{{ job.location }}</span>
+            {% if job.deadline %}<span>·</span><span>Apply by {{ job.deadline }}</span>{% endif %}
+          </div>
+        </div>
+        <span class="btn btn-secondary btn-sm">View Role →</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="icon">💼</div>
+      <h3>No open roles right now</h3>
+      <p>Check back soon — we post new openings here as our project volume grows.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
