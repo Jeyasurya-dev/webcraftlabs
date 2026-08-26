@@ -97,29 +97,6 @@ def ensure_bootstrapped(app):
 app = create_app()
 ensure_bootstrapped(app)
 
-
-@app.route("/sitemap.xml")
-def sitemap():
-    return send_from_directory(
-        ".",
-        "sitemap.xml",
-        mimetype="application/xml"
-    )
-
-
-@app.route("/robots.txt")
-def robots():
-    return send_from_directory(
-        ".",
-        "robots.txt",
-        mimetype="text/plain"
-    )
-
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(
-        host="0.0.0.0",
-        port=port,
-        debug=os.environ.get("FLASK_DEBUG", "0") == "1"
-    )
+    app.run(host="0.0.0.0", port=port, debug=os.environ.get("FLASK_DEBUG", "0") == "1")
