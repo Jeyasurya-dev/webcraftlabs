@@ -290,7 +290,7 @@ p { color: var(--text-muted); }
   height: 18px;
   fill: currentColor;
   stroke: currentColor;
-  stroke-width: 1.5;
+  stroke-width: none;
 }
 @media (max-width: 780px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 
