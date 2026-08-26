@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>{% block title %}{{ brand_name }} — {{ brand_tagline }}{% endblock %}</title>
+
 <meta name="description" content="{% block description %}The Webcraft Labs designs and builds premium business websites, e-commerce stores, portfolios, and AI-powered web experiences.{% endblock %}">
 
 <meta property="og:title" content="{% block og_title %}{{ brand_name }}{% endblock %}">
@@ -11,10 +13,15 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="{{ logo_main }}">
 
-<link rel="icon" type="image/png" href="/favicon.ico">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ logo_small }}">
+<link rel="apple-touch-icon" href="{{ logo_small }}">
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+
 {% block extra_css %}{% endblock %}
+
 <meta name="google-site-verification" content="Cq8xquaiIUrE8uWJDIvq8cSCpPU88TPVi5UVuC75s0A" />
 </head>
 <body>
