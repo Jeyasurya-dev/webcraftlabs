@@ -8,21 +8,42 @@
 
 <meta name="description" content="{% block description %}The Webcraft Labs designs and builds premium business websites, e-commerce stores, portfolios, and AI-powered web experiences.{% endblock %}">
 
+<meta name="application-name" content="The Webcraft Labs">
+
+<!-- Open Graph -->
 <meta property="og:title" content="{% block og_title %}{{ brand_name }}{% endblock %}">
 <meta property="og:description" content="{% block og_description %}Web • AI Solutions — modern websites and digital products built to grow your business.{% endblock %}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://webcraftlabs.site/">
 <meta property="og:image" content="{{ logo_main }}">
+<meta property="og:site_name" content="The Webcraft Labs">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="{{ logo_small }}">
 <link rel="apple-touch-icon" href="{{ logo_small }}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://webcraftlabs.site/">
+
+<!-- WebSite Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "The Webcraft Labs",
+  "alternateName": "Webcraft Labs",
+  "url": "https://webcraftlabs.site/"
+}
+</script>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
 
 {% block extra_css %}{% endblock %}
 
+<!-- Google Search Console Verification -->
 <meta name="google-site-verification" content="Cq8xquaiIUrE8uWJDIvq8cSCpPU88TPVi5UVuC75s0A" />
+
 </head>
 <body>
 
