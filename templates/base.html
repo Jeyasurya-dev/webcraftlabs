@@ -62,6 +62,8 @@
         <li><a href="{{ url_for('public.portfolio') }}" class="{{ 'active' if request.endpoint == 'public.portfolio' }}">Portfolio</a></li>
         <li><a href="{{ url_for('public.about') }}" class="{{ 'active' if request.endpoint == 'public.about' }}">About</a></li>
         <li><a href="{{ url_for('careers.careers_list') }}" class="{{ 'active' if request.endpoint and request.endpoint.startswith('careers.') }}">Careers</a></li>
+        <li><a href="{{ url_for('public.contact') }}" class="{{ 'active' if request.endpoint == 'public.contact' }}">Contact</a>
+  </li>
       </ul>
     </nav>
     <div class="nav-actions">
