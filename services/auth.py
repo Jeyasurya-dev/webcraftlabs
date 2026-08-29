@@ -29,17 +29,27 @@ def create_admin(email: str, password: str, name: str = "Admin"):
 
 def authenticate(email: str, password: str):
     admin = get_admin_by_email(email)
+
     if admin and verify_password(password, admin["password_hash"]):
-        execute("UPDATE admins SET last_login_at = datetime('now') WHERE id = ?", (admin["id"],))
+        execute(
+            "UPDATE admins SET last_login_at = CURRENT_TIMESTAMP WHERE id = ?",
+            (admin["id"],),
+        )
         return admin
+
     return None
 
 
 def current_admin():
     admin_id = session.get("admin_id")
+
     if not admin_id:
         return None
-    return query_one("SELECT id, email, name FROM admins WHERE id = ?", (admin_id,))
+
+    return query_one(
+        "SELECT id, email, name FROM admins WHERE id = ?",
+        (admin_id,),
+    )
 
 
 def login_required(view):
@@ -47,6 +57,10 @@ def login_required(view):
     def wrapped(*args, **kwargs):
         if not session.get("admin_id"):
             flash("Please log in to continue.", "error")
-            return redirect(url_for("admin.login", next=request.path))
+            return redirect(
+                url_for("admin.login", next=request.path)
+            )
+
         return view(*args, **kwargs)
+
     return wrapped
