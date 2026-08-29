@@ -8,13 +8,17 @@
         <img src="{{ logo_small }}" alt="">
         <span>Web • AI Solutions</span>
       </div>
-      <h1>We Build Digital Experiences That <span class="text-gradient">Grow.</span></h1>
-      <p class="lead">Modern websites, AI-powered solutions, and digital products designed to help businesses stand out and scale.</p>
+
+      <h1>Affordable Premium Websites That Help Your <span class="text-gradient">Business Grow.</span></h1>
+
+      <p class="lead">We are an affordable web design and web development company in Tamil Nadu, building premium websites and digital solutions that help businesses stand out, connect with customers, and grow.</p>
+
       <div class="hero-ctas">
         <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Start a Project →</a>
         <a href="{{ url_for('public.portfolio') }}" class="btn btn-secondary">Explore Our Work →</a>
       </div>
     </div>
+
     <div class="hero-visual reveal in" aria-hidden="true">
       <div class="mockup mockup-back-1"></div>
       <div class="mockup mockup-back-2"></div>
@@ -35,29 +39,35 @@
   <div class="container">
     <div class="section-head centered">
       <div class="eyebrow">Services</div>
-      <h2>What We Build</h2>
+      <h2>Website Design & Development Services</h2>
     </div>
+
     <div class="services-grid">
+
       <div class="card service-card reveal">
         <div class="service-icon">🌐</div>
         <h3>Business Websites</h3>
-        <p>Professional websites designed to establish your brand and generate leads.</p>
+        <p>Professional, high-performing websites with modern web design, responsive UI/UX, and conversion-focused experiences built to support business growth.</p>
       </div>
+
       <div class="card service-card reveal">
         <div class="service-icon">🛒</div>
         <h3>E-Commerce Websites</h3>
-        <p>Modern online stores built for smooth shopping experiences and conversions.</p>
+        <p>Modern e-commerce websites with responsive web design, smooth user experiences, and scalable functionality built for growing businesses.</p>
       </div>
+
       <div class="card service-card reveal">
         <div class="service-icon">💼</div>
         <h3>Portfolio Websites</h3>
-        <p>High-quality portfolio websites for creators, professionals and personal brands.</p>
+        <p>High-quality portfolio websites for creators, professionals, and personal brands with clean design and responsive user experiences.</p>
       </div>
+
       <div class="card service-card reveal">
         <div class="service-icon">🤖</div>
         <h3>AI-Powered Websites</h3>
-        <p>Web experiences enhanced with AI features and intelligent functionality.</p>
+        <p>AI-powered web experiences and intelligent functionality designed to improve customer experiences and support modern business needs.</p>
       </div>
+
     </div>
   </div>
 </section>
@@ -66,15 +76,59 @@
   <div class="container">
     <div class="section-head centered">
       <div class="eyebrow">Why Webcraft Labs</div>
-      <h2>Built For Performance. Designed For Impact.</h2>
+      <h2>High-Performing Websites Built for Business Growth</h2>
     </div>
+
     <div class="feature-grid">
-      <div class="feature-item reveal"><span class="icon">⚡</span><div><h4>Fast Performance</h4><p>Optimized, lightweight builds that load quickly on any connection.</p></div></div>
-      <div class="feature-item reveal"><span class="icon">📱</span><div><h4>Fully Responsive</h4><p>Designed deliberately for mobile, not just shrunk from desktop.</p></div></div>
-      <div class="feature-item reveal"><span class="icon">🔍</span><div><h4>SEO Ready</h4><p>Semantic markup and metadata that search engines understand.</p></div></div>
-      <div class="feature-item reveal"><span class="icon">🔐</span><div><h4>Secure & Scalable</h4><p>Built on a clean architecture that grows with your business.</p></div></div>
-      <div class="feature-item reveal"><span class="icon">🤖</span><div><h4>AI Integration</h4><p>Intelligent features woven into the experience where they add value.</p></div></div>
-      <div class="feature-item reveal"><span class="icon">🎯</span><div><h4>Conversion Focused</h4><p>Every layout decision is made to move visitors toward action.</p></div></div>
+
+      <div class="feature-item reveal">
+        <span class="icon">⚡</span>
+        <div>
+          <h4>High Performance</h4>
+          <p>Fast, lightweight websites optimized for smooth browsing and better user experiences.</p>
+        </div>
+      </div>
+
+      <div class="feature-item reveal">
+        <span class="icon">📱</span>
+        <div>
+          <h4>Responsive Web Design</h4>
+          <p>Modern web design that works seamlessly across mobile, tablet, and desktop devices.</p>
+        </div>
+      </div>
+
+      <div class="feature-item reveal">
+        <span class="icon">🔍</span>
+        <div>
+          <h4>SEO Ready</h4>
+          <p>Semantic HTML, structured metadata, and search-friendly website development built for discoverability.</p>
+        </div>
+      </div>
+
+      <div class="feature-item reveal">
+        <span class="icon">🔐</span>
+        <div>
+          <h4>Secure & Scalable</h4>
+          <p>Clean website development built with a scalable architecture that can grow with your business.</p>
+        </div>
+      </div>
+
+      <div class="feature-item reveal">
+        <span class="icon">🤖</span>
+        <div>
+          <h4>AI Integration</h4>
+          <p>AI-powered web experiences and intelligent features designed around real business needs.</p>
+        </div>
+      </div>
+
+      <div class="feature-item reveal">
+        <span class="icon">🎯</span>
+        <div>
+          <h4>Conversion Focused</h4>
+          <p>Strategic UI/UX designed to guide visitors toward enquiries, purchases, and meaningful actions.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -86,12 +140,18 @@
       <div class="eyebrow">Portfolio</div>
       <h2>Selected Work</h2>
     </div>
+
     <div class="portfolio-grid">
       {% for p in featured_projects %}
       <div class="card project-card reveal">
         <div class="project-thumb">
-          {% if p.image_data %}<img src="{{ p.image_data }}" alt="{{ p.title }}">{% else %}<span class="placeholder">{{ p.title[:1] }}</span>{% endif %}
+          {% if p.image_data %}
+          <img src="{{ p.image_data }}" alt="{{ p.title }}">
+          {% else %}
+          <span class="placeholder">{{ p.title[:1] }}</span>
+          {% endif %}
         </div>
+
         <div class="project-body">
           <div class="cat">{{ p.category }}</div>
           <h3>{{ p.title }}</h3>
@@ -100,6 +160,7 @@
       </div>
       {% endfor %}
     </div>
+
     <div class="text-center" style="margin-top:40px;">
       <a href="{{ url_for('public.portfolio') }}" class="btn btn-secondary">View Full Portfolio →</a>
     </div>
@@ -113,11 +174,33 @@
       <div class="eyebrow">Process</div>
       <h2>From Idea → Launch</h2>
     </div>
+
     <div class="process-list">
-      <div class="process-step reveal"><div class="step-num">01 — Discover</div><h3>Discover</h3><p>Understand the business, goals and requirements.</p></div>
-      <div class="process-step reveal"><div class="step-num">02 — Design</div><h3>Design</h3><p>Create the visual direction and user experience.</p></div>
-      <div class="process-step reveal"><div class="step-num">03 — Develop</div><h3>Develop</h3><p>Build a fast, responsive and scalable website.</p></div>
-      <div class="process-step reveal"><div class="step-num">04 — Launch</div><h3>Launch</h3><p>Test, optimize and take the website live.</p></div>
+
+      <div class="process-step reveal">
+        <div class="step-num">01 — Discover</div>
+        <h3>Discover</h3>
+        <p>Understand the business, goals, audience, and website requirements.</p>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="step-num">02 — Design</div>
+        <h3>Design</h3>
+        <p>Create the visual direction, responsive UI/UX, and user experience.</p>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="step-num">03 — Develop</div>
+        <h3>Develop</h3>
+        <p>Build a fast, responsive, and scalable website with modern web development practices.</p>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="step-num">04 — Launch</div>
+        <h3>Launch</h3>
+        <p>Test, optimize, and take the website live with a focus on performance and usability.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -125,8 +208,14 @@
 <section class="section" style="text-align:center;">
   <div class="container">
     <h2 style="margin-bottom:20px;">Have a project in mind?</h2>
-    <p style="max-width:480px;margin:0 auto 32px;">Tell us what you're building and we'll get back to you within one business day.</p>
-    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Start a Project →</a>
+
+    <p style="max-width:480px;margin:0 auto 32px;">
+      Tell us what you're building and we'll get back to you within one business day.
+    </p>
+
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">
+      Start a Project →
+    </a>
   </div>
 </section>
 
