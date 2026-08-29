@@ -1,113 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>{% block title %}{{ brand_name }} — {{ brand_tagline }}{% endblock %}</title>
+<!-- =========================================================
+     Primary SEO
+     ========================================================= -->
 
-<meta name="description" content="{% block description %}The Webcraft Labs designs and builds premium business websites, e-commerce stores, portfolios, and AI-powered web experiences.{% endblock %}">
+<title>
+  {% block title %}
+    {{ brand_name }} — {{ brand_tagline }}
+  {% endblock %}
+</title>
 
-<meta name="application-name" content="The Webcraft Labs">
+<meta
+  name="description"
+  content="{% block description %}The Webcraft Labs designs and builds premium business websites, e-commerce stores, portfolios, and AI-powered web experiences.{% endblock %}"
+>
 
-<!-- Open Graph -->
-<meta property="og:title" content="{% block og_title %}{{ brand_name }}{% endblock %}">
-<meta property="og:description" content="{% block og_description %}Web • AI Solutions — modern websites and digital products built to grow your business.{% endblock %}">
+<meta name="application-name" content="{{ brand_name }}">
+<meta name="author" content="{{ brand_name }}">
+
+<!-- =========================================================
+     Open Graph
+     ========================================================= -->
+
+<meta
+  property="og:title"
+  content="{% block og_title %}{{ brand_name }} — {{ brand_tagline }}{% endblock %}"
+>
+
+<meta
+  property="og:description"
+  content="{% block og_description %}Web • AI Solutions — modern websites and digital products built to grow your business.{% endblock %}"
+>
+
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://webcraftlabs.site/">
-<meta property="og:image" content="{{ logo_main }}">
-<meta property="og:site_name" content="The Webcraft Labs">
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ logo_small }}">
-<link rel="apple-touch-icon" href="{{ logo_small }}">
+<meta
+  property="og:url"
+  content="{{ site_url }}{{ request.path }}"
+>
 
-<!-- Canonical URL -->
-<link rel="canonical" href="https://webcraftlabs.site/">
+<meta
+  property="og:image"
+  content="{{ logo_main }}"
+>
 
-<!-- WebSite Structured Data -->
+<meta
+  property="og:site_name"
+  content="{{ brand_name }}"
+>
+
+<meta property="og:locale" content="en_IN">
+
+<!-- =========================================================
+     Favicon
+     ========================================================= -->
+
+<link
+  rel="icon"
+  type="image/png"
+  href="{{ logo_small }}"
+>
+
+<link
+  rel="apple-touch-icon"
+  href="{{ logo_small }}"
+>
+
+<!-- =========================================================
+     Canonical URL
+     ========================================================= -->
+
+<link
+  rel="canonical"
+  href="{{ site_url }}{{ request.path }}"
+>
+
+<!-- =========================================================
+     WebSite Structured Data
+     ========================================================= -->
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://webcraftlabs.site/#website",
   "name": "The Webcraft Labs",
-  "alternateName": "Webcraft Labs",
-  "url": "https://webcraftlabs.site/"
+  "alternateName": [
+    "Webcraft Labs",
+    "The Webcraft Labs"
+  ],
+  "url": "https://webcraftlabs.site/",
+  "description": "The Webcraft Labs designs and builds premium business websites, e-commerce stores, portfolios, and AI-powered web experiences.",
+  "inLanguage": "en-IN",
+  "publisher": {
+    "@id": "https://webcraftlabs.site/#organization"
+  }
 }
 </script>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+<!-- =========================================================
+     Organization Structured Data
+     ========================================================= -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://webcraftlabs.site/#organization",
+  "name": "The Webcraft Labs",
+  "alternateName": "Webcraft Labs",
+  "url": "https://webcraftlabs.site/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "{{ logo_main }}"
+  },
+  "description": "Web • AI Solutions. The Webcraft Labs designs and builds premium websites and digital solutions for businesses.",
+  "sameAs": [
+    "https://www.instagram.com/thewebcraftlabs/",
+    "https://github.com/Jeyasurya-dev",
+    "https://x.com/TheWebcraftLabs"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-63795-58565",
+    "contactType": "customer service",
+    "email": "suryasivalai04@gmail.com"
+  }
+}
+</script>
+
+<!-- =========================================================
+     Stylesheets
+     ========================================================= -->
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main.css') }}"
+>
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/components.css') }}"
+>
 
 {% block extra_css %}{% endblock %}
 
-<!-- Google Search Console Verification -->
-<meta name="google-site-verification" content="Cq8xquaiIUrE8uWJDIvq8cSCpPU88TPVi5UVuC75s0A" />
+<!-- =========================================================
+     Google Search Console Verification
+     ========================================================= -->
+
+<meta
+  name="google-site-verification"
+  content="Cq8xquaiIUrE8uWJDIvq8cSCpPU88TPVi5UVuC75s0A"
+>
 
 </head>
+
 <body>
 
-<a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:0;">Skip to content</a>
+<!-- =========================================================
+     Accessibility
+     ========================================================= -->
+
+<a
+  href="#main-content"
+  class="sr-only"
+  style="position:absolute;left:-9999px;top:0;"
+>
+  Skip to content
+</a>
+
+<!-- =========================================================
+     Navigation
+     ========================================================= -->
 
 <header class="navbar">
+
   <div class="navbar-inner">
-    <a href="{{ url_for('public.home') }}" class="brand">
-      <img src="{{ logo_small }}" alt="{{ brand_name }} logo">
-      <span>The Webcraft Labs</span>
+
+    <a
+      href="{{ url_for('public.home') }}"
+      class="brand"
+      aria-label="{{ brand_name }} home"
+    >
+
+      <img
+        src="{{ logo_small }}"
+        alt="{{ brand_name }} logo"
+      >
+
+      <span>{{ brand_name }}</span>
+
     </a>
-    <nav>
+
+
+    <nav aria-label="Main navigation">
+
       <ul class="nav-links" id="navLinks">
-        <li><a href="{{ url_for('public.home') }}" class="{{ 'active' if request.endpoint == 'public.home' }}">Home</a></li>
-        <li><a href="{{ url_for('public.services') }}" class="{{ 'active' if request.endpoint == 'public.services' }}">Services</a></li>
-        <li><a href="{{ url_for('public.portfolio') }}" class="{{ 'active' if request.endpoint == 'public.portfolio' }}">Portfolio</a></li>
-        <li><a href="{{ url_for('public.about') }}" class="{{ 'active' if request.endpoint == 'public.about' }}">About</a></li>
-        <li><a href="{{ url_for('careers.careers_list') }}" class="{{ 'active' if request.endpoint and request.endpoint.startswith('careers.') }}">Careers</a></li>
-        <li><a href="{{ url_for('public.contact') }}" class="{{ 'active' if request.endpoint == 'public.contact' }}">Contact</a>
-  </li>
+
+        <li>
+          <a
+            href="{{ url_for('public.home') }}"
+            class="{{ 'active' if request.endpoint == 'public.home' }}"
+          >
+            Home
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{{ url_for('public.services') }}"
+            class="{{ 'active' if request.endpoint == 'public.services' }}"
+          >
+            Services
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{{ url_for('public.portfolio') }}"
+            class="{{ 'active' if request.endpoint == 'public.portfolio' }}"
+          >
+            Portfolio
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{{ url_for('public.about') }}"
+            class="{{ 'active' if request.endpoint == 'public.about' }}"
+          >
+            About
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{{ url_for('careers.careers_list') }}"
+            class="{{ 'active' if request.endpoint and request.endpoint.startswith('careers.') }}"
+          >
+            Careers
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{{ url_for('public.contact') }}"
+            class="{{ 'active' if request.endpoint == 'public.contact' }}"
+          >
+            Contact
+          </a>
+        </li>
+
       </ul>
+
     </nav>
+
+
     <div class="nav-actions">
-      <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-sm">Start a Project</a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+
+      <a
+        href="{{ url_for('public.contact') }}"
+        class="btn btn-primary btn-sm"
+      >
+        Start a Project
+      </a>
+
+      <button
+        class="nav-toggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
+
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+
       </button>
+
     </div>
+
   </div>
+
 </header>
 
+
+<!-- =========================================================
+     Flash Messages
+     ========================================================= -->
+
 {% with messages = get_flashed_messages(with_categories=true) %}
+
   {% if messages %}
-  <div class="toast-stack" role="status" aria-live="polite">
-    {% for category, message in messages %}
-    <div class="toast {{ 'success' if category == 'success' else 'error' }}">{{ message }}</div>
-    {% endfor %}
-  </div>
-  {% endif %}
-{% endwith %}
 
-<main id="main-content">
-{% block content %}{% endblock %}
-</main>
+    <div
+      class="toast-stack"
+      role="status"
+      aria-live="polite"
+    >
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
+      {% for category, message in messages %}
 
-      <!-- Brand -->
-      <div>
-        <div class="footer-brand">
-          <img src="{{ logo_small }}" alt="{{ brand_name }} logo">
-          <span>The Webcraft Labs</span>
+        <div
+          class="toast {{ 'success' if category == 'success' else 'error' }}"
+        >
+          {{ message }}
         </div>
 
+      {% endfor %}
+
+    </div>
+
+  {% endif %}
+
+{% endwith %}
+
+
+<!-- =========================================================
+     Main Content
+     ========================================================= -->
+
+<main id="main-content">
+
+  {% block content %}
+  {% endblock %}
+
+</main>
+
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <!-- ===================================================
+           Brand
+           =================================================== -->
+
+      <div>
+
+        <div class="footer-brand">
+
+          <img
+            src="{{ logo_small }}"
+            alt="{{ brand_name }} logo"
+          >
+
+          <span>{{ brand_name }}</span>
+
+        </div>
+
+
         <p style="max-width:280px;">
-          Web • AI Solutions. We design and build digital experiences that help businesses stand out and scale.
+          Web • AI Solutions. We design and build digital
+          experiences that help businesses stand out and scale.
         </p>
 
+
         <!-- Social Links -->
+
         <div class="footer-socials">
 
           <!-- Instagram -->
+
           <a
             href="https://www.instagram.com/thewebcraftlabs/"
             target="_blank"
@@ -115,14 +390,23 @@
             aria-label="Instagram"
             title="Instagram"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path
-            d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 1.8a4 4 0 0 0-4 4v8.4a4 4 0 0 0 4 4h8.4a4 4 0 0 0 4-4V7.8a4 4 0 0 0-4-4H7.8Zm8.9 1.35a1.35 1.35 0 1 1 0 2.7 1.35 1.35 0 0 1 0-2.7ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z"
-            />
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 1.8a4 4 0 0 0-4 4v8.4a4 4 0 0 0 4 4h8.4a4 4 0 0 0 4-4V7.8a4 4 0 0 0-4-4H7.8Zm8.9 1.35a1.35 1.35 0 1 1 0 2.7 1.35 1.35 0 0 1 0-2.7ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z"
+              />
+
             </svg>
+
           </a>
 
+
           <!-- GitHub -->
+
           <a
             href="https://github.com/Jeyasurya-dev"
             target="_blank"
@@ -130,12 +414,23 @@
             aria-label="GitHub"
             title="GitHub"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.64-1.38-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.2 9.2 0 0 1 12 7.93c.85 0 1.7.12 2.5.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.84c0 .27.18.59.69.48A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z"></path>
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.64-1.38-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.84c0 .27.18.59.69.48A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z"
+              />
+
             </svg>
+
           </a>
 
+
           <!-- X -->
+
           <a
             href="https://x.com/TheWebcraftLabs"
             target="_blank"
@@ -143,97 +438,205 @@
             aria-label="X"
             title="X"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.39L6.48 22H3.37l7.24-8.28L3 2h6.4l4.42 5.84L18.9 2Zm-1.1 17.9h1.73L8.48 4H6.62L17.8 19.9Z"></path>
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.39L6.48 22H3.37l7.24-8.28L3 2h6.4l4.42 5.84L18.9 2Zm-1.1 17.9h1.73L8.48 4H6.62L17.8 19.9Z"
+              />
+
             </svg>
+
           </a>
 
         </div>
+
       </div>
 
-      <!-- Studio -->
+
+      <!-- ===================================================
+           Studio
+           =================================================== -->
+
       <div>
+
         <h4>Studio</h4>
+
         <ul>
+
           <li>
-            <a href="{{ url_for('public.about') }}">About</a>
+            <a href="{{ url_for('public.about') }}">
+              About
+            </a>
           </li>
+
           <li>
-            <a href="{{ url_for('public.portfolio') }}">Portfolio</a>
+            <a href="{{ url_for('public.portfolio') }}">
+              Portfolio
+            </a>
           </li>
+
           <li>
-            <a href="{{ url_for('careers.careers_list') }}">Careers</a>
+            <a href="{{ url_for('careers.careers_list') }}">
+              Careers
+            </a>
           </li>
+
         </ul>
+
       </div>
 
-      <!-- Services -->
+
+      <!-- ===================================================
+           Services
+           =================================================== -->
+
       <div>
+
         <h4>Services</h4>
+
         <ul>
+
           <li>
             <a href="{{ url_for('public.services') }}">
               Business Websites
             </a>
           </li>
+
           <li>
             <a href="{{ url_for('public.services') }}">
               E-Commerce
             </a>
           </li>
+
           <li>
             <a href="{{ url_for('public.services') }}">
               AI-Powered Websites
             </a>
           </li>
+
         </ul>
+
       </div>
 
-      <!-- Get In Touch -->
+
+      <!-- ===================================================
+           Get In Touch
+           =================================================== -->
+
       <div>
+
         <h4>Get In Touch</h4>
+
         <ul>
+
           <li>
             <a href="{{ url_for('public.contact') }}">
               Start a Project
             </a>
           </li>
+
           <li>
             <a href="{{ url_for('admin.login') }}">
               Admin
             </a>
           </li>
+
         </ul>
+
       </div>
 
+
+      <!-- ===================================================
+           Business Info
+           =================================================== -->
+
       <div class="business-info">
-       <h4>BUSINESS INFO</h4>
-       <div class="business-info-content">
-         <strong>WEBCRAFT LABS</strong>
-         <span>Web • AI Solutions</span>
-         <a href="mailto:suryasivalai04@gmail.com">📧 <span>suryasivalai04@gmail.com</span></a>
-         <a href="tel:+916379558565">📱 <span>+91 63795 58565</span></a>
-         <a href="https://wa.me/916379558565" target="_blank" rel="noopener noreferrer">💬 <span>Chat on WhatsApp →</span></a>
+
+        <h4>BUSINESS INFO</h4>
+
+        <div class="business-info-content">
+
+          <strong>
+            {{ brand_name }}
+          </strong>
+
+          <span>
+            {{ brand_tagline }}
+          </span>
+
+          <a href="mailto:suryasivalai04@gmail.com">
+            📧
+            <span>
+              suryasivalai04@gmail.com
+            </span>
+          </a>
+
+          <a href="tel:+916379558565">
+            📱
+            <span>
+              +91 63795 58565
+            </span>
+          </a>
+
+          <a
+            href="https://wa.me/916379558565"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            💬
+            <span>
+              Chat on WhatsApp →
+            </span>
+          </a>
+
         </div>
+
       </div>
 
     </div>
 
-    <!-- Footer Bottom -->
+
+    <!-- =====================================================
+         Footer Bottom
+         ===================================================== -->
+
     <div class="footer-bottom">
+
       <span>
-        © {{ current_year }} The Webcraft Labs. All rights reserved.
+        © {{ current_year }}
+        {{ brand_name }}.
+        All rights reserved.
       </span>
 
       <span>
         Design • Develop • Deliver
       </span>
+
     </div>
 
   </div>
+
 </footer>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-<script src="{{ url_for('static', filename='js/forms.js') }}"></script>
-{% block extra_js %}{% endblock %}
+
+
+<!-- =========================================================
+     JavaScript
+     ========================================================= -->
+
+<script
+  src="{{ url_for('static', filename='js/main.js') }}"
+></script>
+
+<script
+  src="{{ url_for('static', filename='js/forms.js') }}"
+></script>
+
+{% block extra_js %}
+{% endblock %}
+
 </body>
 </html>
