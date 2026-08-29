@@ -9,7 +9,7 @@ public_bp = Blueprint("public", __name__)
 @public_bp.route("/")
 def home():
     featured_projects = query_all(
-        "SELECT * FROM projects WHERE is_published = 1 AND is_featured = 1 ORDER BY sort_order LIMIT 3"
+        "SELECT * FROM projects WHERE is_published = TRUE AND is_featured = TRUE ORDER BY sort_order LIMIT 3"
     )
     return render_template("index.html", featured_projects=featured_projects)
 
