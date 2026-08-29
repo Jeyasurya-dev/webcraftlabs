@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS admins (
     last_login_at TIMESTAMP
 );
 
+
 CREATE TABLE IF NOT EXISTS enquiries (
     id BIGSERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -19,13 +20,25 @@ CREATE TABLE IF NOT EXISTS enquiries (
     budget_range TEXT,
     message TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'New'
-        CHECK (status IN ('New','Contacted','In Discussion','Converted','Closed')),
+        CHECK (
+            status IN (
+                'New',
+                'Contacted',
+                'In Discussion',
+                'Converted',
+                'Closed'
+            )
+        ),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_enquiries_status ON enquiries(status);
-CREATE INDEX IF NOT EXISTS idx_enquiries_created ON enquiries(created_at);
+CREATE INDEX IF NOT EXISTS idx_enquiries_status
+    ON enquiries(status);
+
+CREATE INDEX IF NOT EXISTS idx_enquiries_created
+    ON enquiries(created_at);
+
 
 CREATE TABLE IF NOT EXISTS projects (
     id BIGSERIAL PRIMARY KEY,
@@ -36,15 +49,22 @@ CREATE TABLE IF NOT EXISTS projects (
     case_study TEXT,
     technology TEXT,
     live_url TEXT,
+
+    -- Supabase Storage path only.
+    -- Example: projects/uuid.webp
     image_data TEXT,
+
     is_published BOOLEAN NOT NULL DEFAULT FALSE,
     is_featured BOOLEAN NOT NULL DEFAULT FALSE,
     sort_order INTEGER NOT NULL DEFAULT 0,
+
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_projects_published ON projects(is_published);
+CREATE INDEX IF NOT EXISTS idx_projects_published
+    ON projects(is_published);
+
 
 CREATE TABLE IF NOT EXISTS jobs (
     id BIGSERIAL PRIMARY KEY,
@@ -59,31 +79,65 @@ CREATE TABLE IF NOT EXISTS jobs (
     compensation TEXT,
     deadline TEXT,
     status TEXT NOT NULL DEFAULT 'Draft'
-        CHECK (status IN ('Draft','Open','Closed')),
+        CHECK (
+            status IN (
+                'Draft',
+                'Open',
+                'Closed'
+            )
+        ),
     posted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_jobs_status ON jobs(status);
+CREATE INDEX IF NOT EXISTS idx_jobs_status
+    ON jobs(status);
+
 
 CREATE TABLE IF NOT EXISTS applications (
     id BIGSERIAL PRIMARY KEY,
-    job_id BIGINT NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
+
+    job_id BIGINT NOT NULL
+        REFERENCES jobs(id)
+        ON DELETE CASCADE,
+
     full_name TEXT NOT NULL,
     email TEXT NOT NULL,
     phone TEXT,
     portfolio_url TEXT,
     cover_message TEXT,
-    resume_filename TEXT NOT NULL,
+
+    -- Supabase Storage path only.
+    -- Example: resumes/uuid.pdf
+    --
+    -- Nullable because the resume is deleted
+    -- when an application is rejected.
+    resume_filename TEXT,
+
     resume_original_name TEXT,
+
     status TEXT NOT NULL DEFAULT 'New'
-        CHECK (status IN ('New','Reviewing','Shortlisted','Interview','Selected','Rejected')),
+        CHECK (
+            status IN (
+                'New',
+                'Reviewing',
+                'Shortlisted',
+                'Interview',
+                'Selected',
+                'Rejected'
+            )
+        ),
+
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_applications_job ON applications(job_id);
-CREATE INDEX IF NOT EXISTS idx_applications_status ON applications(status);
+CREATE INDEX IF NOT EXISTS idx_applications_job
+    ON applications(job_id);
+
+CREATE INDEX IF NOT EXISTS idx_applications_status
+    ON applications(status);
+
 
 CREATE TABLE IF NOT EXISTS site_settings (
     key TEXT PRIMARY KEY,

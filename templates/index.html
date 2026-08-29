@@ -22,8 +22,14 @@
     <div class="hero-visual reveal in" aria-hidden="true">
       <div class="mockup mockup-back-1"></div>
       <div class="mockup mockup-back-2"></div>
+
       <div class="mockup mockup-main">
-        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-bar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
         <div class="mockup-body">
           <div class="line w40"></div>
           <div class="line w80"></div>
@@ -35,8 +41,10 @@
   </div>
 </section>
 
+
 <section class="section" id="services">
   <div class="container">
+
     <div class="section-head centered">
       <div class="eyebrow">Services</div>
       <h2>Website Design & Development Services</h2>
@@ -47,33 +55,51 @@
       <div class="card service-card reveal">
         <div class="service-icon">🌐</div>
         <h3>Business Websites</h3>
-        <p>Professional, high-performing websites with modern web design, responsive UI/UX, and conversion-focused experiences built to support business growth.</p>
+        <p>
+          Professional, high-performing websites with modern web design,
+          responsive UI/UX, and conversion-focused experiences built to
+          support business growth.
+        </p>
       </div>
 
       <div class="card service-card reveal">
         <div class="service-icon">🛒</div>
         <h3>E-Commerce Websites</h3>
-        <p>Modern e-commerce websites with responsive web design, smooth user experiences, and scalable functionality built for growing businesses.</p>
+        <p>
+          Modern e-commerce websites with responsive web design,
+          smooth user experiences, and scalable functionality built
+          for growing businesses.
+        </p>
       </div>
 
       <div class="card service-card reveal">
         <div class="service-icon">💼</div>
         <h3>Portfolio Websites</h3>
-        <p>High-quality portfolio websites for creators, professionals, and personal brands with clean design and responsive user experiences.</p>
+        <p>
+          High-quality portfolio websites for creators, professionals,
+          and personal brands with clean design and responsive user
+          experiences.
+        </p>
       </div>
 
       <div class="card service-card reveal">
         <div class="service-icon">🤖</div>
         <h3>AI-Powered Websites</h3>
-        <p>AI-powered web experiences and intelligent functionality designed to improve customer experiences and support modern business needs.</p>
+        <p>
+          AI-powered web experiences and intelligent functionality
+          designed to improve customer experiences and support modern
+          business needs.
+        </p>
       </div>
 
     </div>
   </div>
 </section>
 
+
 <section class="section section-tight" style="background:var(--bg-elevated);">
   <div class="container">
+
     <div class="section-head centered">
       <div class="eyebrow">Why Webcraft Labs</div>
       <h2>High-Performing Websites Built for Business Growth</h2>
@@ -85,7 +111,10 @@
         <span class="icon">⚡</span>
         <div>
           <h4>High Performance</h4>
-          <p>Fast, lightweight websites optimized for smooth browsing and better user experiences.</p>
+          <p>
+            Fast, lightweight websites optimized for smooth browsing
+            and better user experiences.
+          </p>
         </div>
       </div>
 
@@ -93,7 +122,10 @@
         <span class="icon">📱</span>
         <div>
           <h4>Responsive Web Design</h4>
-          <p>Modern web design that works seamlessly across mobile, tablet, and desktop devices.</p>
+          <p>
+            Modern web design that works seamlessly across mobile,
+            tablet, and desktop devices.
+          </p>
         </div>
       </div>
 
@@ -101,7 +133,10 @@
         <span class="icon">🔍</span>
         <div>
           <h4>SEO Ready</h4>
-          <p>Semantic HTML, structured metadata, and search-friendly website development built for discoverability.</p>
+          <p>
+            Semantic HTML, structured metadata, and search-friendly
+            website development built for discoverability.
+          </p>
         </div>
       </div>
 
@@ -109,7 +144,10 @@
         <span class="icon">🔐</span>
         <div>
           <h4>Secure & Scalable</h4>
-          <p>Clean website development built with a scalable architecture that can grow with your business.</p>
+          <p>
+            Clean website development built with a scalable architecture
+            that can grow with your business.
+          </p>
         </div>
       </div>
 
@@ -117,7 +155,10 @@
         <span class="icon">🤖</span>
         <div>
           <h4>AI Integration</h4>
-          <p>AI-powered web experiences and intelligent features designed around real business needs.</p>
+          <p>
+            AI-powered web experiences and intelligent features designed
+            around real business needs.
+          </p>
         </div>
       </div>
 
@@ -125,51 +166,101 @@
         <span class="icon">🎯</span>
         <div>
           <h4>Conversion Focused</h4>
-          <p>Strategic UI/UX designed to guide visitors toward enquiries, purchases, and meaningful actions.</p>
+          <p>
+            Strategic UI/UX designed to guide visitors toward enquiries,
+            purchases, and meaningful actions.
+          </p>
         </div>
       </div>
 
     </div>
   </div>
 </section>
+
 
 {% if featured_projects %}
 <section class="section">
   <div class="container">
+
     <div class="section-head centered">
-      <div class="eyebrow">Our Services</div>
+      <div class="eyebrow">Our Work</div>
       <h2>Selected Work</h2>
     </div>
 
     <div class="portfolio-grid">
+
       {% for p in featured_projects %}
+
       <div class="card project-card reveal">
+
         <div class="project-thumb">
-          {% if p.image_data %}
-          <img src="{{ p.image_data }}" alt="{{ p.title }}">
+
+          {# 
+            Project images are now served through
+            temporary Supabase signed URLs generated
+            by public.py.
+
+            image_url may also contain an old Base64
+            data URI for backward compatibility.
+          #}
+
+          {% if p.image_url %}
+
+          <img
+            src="{{ p.image_url }}"
+            alt="{{ p.title }}"
+            loading="lazy"
+          >
+
           {% else %}
-          <span class="placeholder">{{ p.title[:1] }}</span>
+
+          <span class="placeholder">
+            {{ p.title[:1] }}
+          </span>
+
           {% endif %}
+
         </div>
 
         <div class="project-body">
-          <div class="cat">{{ p.category }}</div>
-          <h3>{{ p.title }}</h3>
-          <p>{{ p.description }}</p>
+
+          <div class="cat">
+            {{ p.category }}
+          </div>
+
+          <h3>
+            {{ p.title }}
+          </h3>
+
+          <p>
+            {{ p.description }}
+          </p>
+
         </div>
+
       </div>
+
       {% endfor %}
+
     </div>
 
     <div class="text-center" style="margin-top:40px;">
-      <a href="{{ url_for('public.portfolio') }}" class="btn btn-secondary">View Full Portfolio →</a>
+      <a
+        href="{{ url_for('public.portfolio') }}"
+        class="btn btn-secondary"
+      >
+        View Full Portfolio →
+      </a>
     </div>
+
   </div>
 </section>
 {% endif %}
 
+
 <section class="section section-tight">
   <div class="container">
+
     <div class="section-head centered">
       <div class="eyebrow">Process</div>
       <h2>From Idea → Launch</h2>
@@ -180,42 +271,61 @@
       <div class="process-step reveal">
         <div class="step-num">01 — Discover</div>
         <h3>Discover</h3>
-        <p>Understand the business, goals, audience, and website requirements.</p>
+        <p>
+          Understand the business, goals, audience, and website requirements.
+        </p>
       </div>
 
       <div class="process-step reveal">
         <div class="step-num">02 — Design</div>
         <h3>Design</h3>
-        <p>Create the visual direction, responsive UI/UX, and user experience.</p>
+        <p>
+          Create the visual direction, responsive UI/UX, and user experience.
+        </p>
       </div>
 
       <div class="process-step reveal">
         <div class="step-num">03 — Develop</div>
         <h3>Develop</h3>
-        <p>Build a fast, responsive, and scalable website with modern web development practices.</p>
+        <p>
+          Build a fast, responsive, and scalable website with modern
+          web development practices.
+        </p>
       </div>
 
       <div class="process-step reveal">
         <div class="step-num">04 — Launch</div>
         <h3>Launch</h3>
-        <p>Test, optimize, and take the website live with a focus on performance and usability.</p>
+        <p>
+          Test, optimize, and take the website live with a focus on
+          performance and usability.
+        </p>
       </div>
 
     </div>
   </div>
 </section>
 
+
 <section class="section" style="text-align:center;">
   <div class="container">
-    <h2 style="margin-bottom:20px;">Have a project in mind?</h2>
+
+    <h2 style="margin-bottom:20px;">
+      Have a project in mind?
+    </h2>
 
     <p style="max-width:480px;margin:0 auto 32px;">
-      Tell us what you're building and we'll get back to you within one business day.
+      Tell us what you're building and we'll get back to you within
+      one business day.
     </p>
 
-    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">
+    <a
+      href="{{ url_for('public.contact') }}"
+      class="btn btn-primary"
+    >
       Start a Project →
     </a>
+
   </div>
 </section>
 
